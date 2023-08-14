@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+      "outDir": "./dist",
+      "module": "commonjs",
+      "target": "es2019",
+      "esModuleInterop": true,
+      "allowJs": true,
+  },
+  "include": [
+    "src/**/*.ts" // Aqui vocÃª pode ajustar o padrÃ£o para incluir os arquivos que deseja compilar
+  ]
+}

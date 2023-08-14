@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Rxxbm/blog-node-api/issues"
   },
-  "homepage": "https://github.com/Rxxbm/blog-node-api#readme"
+  "homepage": "https://github.com/Rxxbm/blog-node-api#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^5.0.4",
+    "typescript": "^5.1.6"
+  }
 }
