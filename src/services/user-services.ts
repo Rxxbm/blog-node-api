@@ -17,7 +17,7 @@ export const getUsers = async ():Promise<User[]> => {
 export const createUser = async (body:UserInsertDTO):Promise<User> => {
     const prisma = new PrismaClient();
 
-    const userEmail = getUserByEmail(body.email);
+    const userEmail = await getUserByEmail(body.email).catch(() => undefined);
 
     if (userEmail) {
         throw new BadRequestException('Email already exists');
