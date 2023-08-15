@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { BadRequestException } from '../exceptions/bad-request-exception';
+import { MissingParamException } from '../exceptions/missing-param-exception';
 import { NotFoundException } from '../exceptions/not-found-exception';
 import { UserInsertDTO } from '../models/dtos/user-insert.dto';
 import { User } from '../models/User'
@@ -15,6 +16,21 @@ export const getUsers = async ():Promise<User[]> => {
 }
 
 export const createUser = async (body:UserInsertDTO):Promise<User> => {
+    
+    if (!body.email) {
+        throw new MissingParamException('email');
+    }
+    if (!body.name) {
+        throw new MissingParamException('name');
+    }
+    if (!body.password) {
+        throw new MissingParamException('email');
+    }
+    if (!body.typeUser) {
+        throw new MissingParamException('typeUser');
+    }
+    
+    
     const prisma = new PrismaClient();
 
     const userEmail = await getUserByEmail(body.email).catch(() => undefined);
