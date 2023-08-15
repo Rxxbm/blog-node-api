@@ -17,19 +17,13 @@ export const getUsers = async ():Promise<User[]> => {
 
 export const createUser = async (body:UserInsertDTO):Promise<User> => {
     
-    if (!body.email) {
-        throw new MissingParamException('email');
+    const requiredParams = ['email', 'name', 'password', 'typeUser'];
+
+    for (const param of requiredParams) {
+        if (!body[param]) {
+            throw new MissingParamException(param);
+        }
     }
-    if (!body.name) {
-        throw new MissingParamException('name');
-    }
-    if (!body.password) {
-        throw new MissingParamException('email');
-    }
-    if (!body.typeUser) {
-        throw new MissingParamException('typeUser');
-    }
-    
     
     const prisma = new PrismaClient();
 
