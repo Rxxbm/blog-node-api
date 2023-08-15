@@ -5,5 +5,5 @@ export interface User {
     password: string;
     typeUser: number;
     createdAt: Date;
-    updateAt: Date;
+    updatedAt: Date;
 }
