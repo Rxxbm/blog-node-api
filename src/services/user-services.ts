@@ -58,3 +58,23 @@ export const getUserByEmail = async (email:string):Promise<User>  => {
     return user;
 }
 
+export const deleteUserById = async (id:number):Promise<User> => {
+    const prisma = new PrismaClient();
+
+    const existingUser = await prisma.user.findUnique({
+        where: {
+          id,
+        },
+    });
+
+    if (!existingUser) {
+        throw new NotFoundException('user');
+    }
+
+    const deleteUser =  await prisma.user.delete({
+        where: {
+          id,
+        },
+    });
+    return deleteUser;
+}

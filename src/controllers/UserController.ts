@@ -1,7 +1,9 @@
 import { Response, Request } from "express";
+import { BadRequestException } from "../exceptions/bad-request-exception";
 import { ReturnError } from "../exceptions/dto/return-error.dto";
+import { MissingParamException } from "../exceptions/missing-param-exception";
 import { UserInsertDTO } from "../models/dtos/user-insert.dto";
-import { createUser, getUsers } from "../services/user-services";
+import { createUser, deleteUserById, getUsers } from "../services/user-services";
 
 export class UserController {
     public static async getAllUsers(__, res:Response):Promise<Response>{
@@ -18,6 +20,24 @@ export class UserController {
             return res.status(200).json(user);
         }catch(error){
             new ReturnError(res, error);
+        }
+    }
+    public static async deleteOneUser(req: Request, res: Response):Promise<Response>{
+        const isInteger = (value: string) => {
+            return /^\d+$/.test(value);
+        };
+        const validate = isInteger(req.params.id);
+
+        if (!validate) {
+            new ReturnError(res, new BadRequestException('id must be a integer'));    
+        }else{
+            try{
+                const id = parseInt(req.params.id);
+                const user = await deleteUserById(id);
+                return res.status(200).json(user);
+            }catch(error){
+                new ReturnError(res, error);
+            }
         }
     }
 }
