@@ -13,7 +13,6 @@ model User {
   name      String   
   password  String
   typeUser  Int 
-  articles Article[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -24,7 +23,6 @@ model Article {
   title         String
   body          String
   userID        Int 
-  user          User     @relation(fields: [userID], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
