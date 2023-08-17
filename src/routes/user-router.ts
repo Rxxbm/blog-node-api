@@ -12,4 +12,6 @@ router.get('/', authMiddleware, UserController.getAllUsers);
 
 router.post('/', UserController.createOneUser);
 
-router.delete('/:id', UserController.deleteOneUser)
+router.delete('/:id', UserController.deleteOneUser);
+
+router.patch('/', UserController.editUserPassword);
