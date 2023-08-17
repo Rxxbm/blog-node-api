@@ -86,6 +86,28 @@ export const editArticle = async (articleID:number, body: ArticleInsertDTO, user
         data: newArticle,
         
     });
-    
+
     return editArticle;
+}
+
+export const deleteArticleById = async (id:number):Promise<Article> => {
+    
+    const prisma = new PrismaClient();
+
+    const existingArticle = await prisma.article.findUnique({
+        where: {
+          id,
+        },
+    });
+
+    if (!existingArticle) {
+        throw new NotFoundException('article');
+    }
+
+    const deleteArticle = await prisma.article.delete({
+        where: {
+          id,
+        },
+    });
+    return deleteArticle;
 }
