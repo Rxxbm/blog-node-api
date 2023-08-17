@@ -8,12 +8,15 @@ import { User } from '../models/User'
 import { createPasswordHashed } from '../utils/password';
 
 export const getUsers = async ():Promise<User[]> => {
-        const prisma = new PrismaClient();
-        const users = await prisma.user.findMany();
-        if(users?.length == 0){
-            throw new NotFoundException('user');
-        }
-        return users;
+      
+    const prisma = new PrismaClient();
+    
+    const users = await prisma.user.findMany();
+
+    if(users?.length == 0){
+        throw new NotFoundException('user');
+    }
+    return users;
 }
 
 export const createUser = async (body:UserInsertDTO):Promise<User> => {
@@ -46,6 +49,7 @@ export const createUser = async (body:UserInsertDTO):Promise<User> => {
 }
 
 export const getUserByEmail = async (email:string):Promise<User>  => {
+   
     const prisma = new PrismaClient();
 
     const user = await prisma.user.findFirst({
@@ -60,6 +64,7 @@ export const getUserByEmail = async (email:string):Promise<User>  => {
 }
 
 export const getUserById = async (id:number):Promise<User>  => {
+   
     const prisma = new PrismaClient();
 
     const user = await prisma.user.findFirst({
@@ -74,6 +79,7 @@ export const getUserById = async (id:number):Promise<User>  => {
 }
 
 export const deleteUserById = async (id:number):Promise<User> => {
+    
     const prisma = new PrismaClient();
 
     const existingUser = await prisma.user.findUnique({
@@ -95,6 +101,7 @@ export const deleteUserById = async (id:number):Promise<User> => {
 }
 
 export const editUserPasswordById = async (id:number, body: UserEditPasswordDTO):Promise<User> => {
+   
     const prisma = new PrismaClient();
 
     const user = await getUserById(id);
@@ -115,5 +122,6 @@ export const editUserPasswordById = async (id:number, body: UserEditPasswordDTO)
         data: newUser,
         
     });
+
     return editUser;
 }
