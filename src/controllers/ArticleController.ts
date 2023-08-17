@@ -3,7 +3,7 @@ import { BadRequestException } from "../exceptions/bad-request-exception";
 import { ReturnError } from "../exceptions/dto/return-error.dto";
 import { ArticleInsertDTO } from "../models/dtos/article-insert.dto";
 import { UserAuth } from "../models/dtos/user-auth.dto";
-import { createArticle, editArticle, getArticles } from "../services/article-services";
+import { createArticle, deleteArticleById, editArticle, getArticles } from "../services/article-services";
 import { getUserByToken } from "../utils/auth";
 export class ArticleController {
     public static async getAllArticles(__, res:Response):Promise<Response>{
@@ -38,6 +38,24 @@ export class ArticleController {
 
                 const article = await editArticle(articleID, req.body, userID);
                 return res.status(200).json(article);
+            }catch(error){
+                new ReturnError(res, error);
+            }
+        }
+    }
+    public static async deleteOneArticle(req: Request, res: Response):Promise<Response>{
+        const isInteger = (value: string) => {
+            return /^\d+$/.test(value);
+        };
+        const validate = isInteger(req.params.id);
+
+        if (!validate) {
+            new ReturnError(res, new BadRequestException('id must be a integer'));    
+        }else{
+            try{
+                const id = parseInt(req.params.id);
+                const user = await deleteArticleById(id);
+                return res.status(200).json(user);
             }catch(error){
                 new ReturnError(res, error);
             }
