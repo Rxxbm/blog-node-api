@@ -5,7 +5,7 @@ import { UnauthorizedException } from "../exceptions/unauthorized-exception";
 import { UserAuth } from "../models/dtos/user-auth.dto";
 import { verifyToken } from "../utils/auth";
 
-export const authMiddleware = async (req: Request, res: Response, next: NextFunction):Promise<void> => {
+export const authAdminMiddleware = async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     const authorization = req.headers.authorization;
 
     await verifyToken(authorization)
