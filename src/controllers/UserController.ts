@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import { BadRequestException } from "../exceptions/bad-request-exception";
 import { ReturnError } from "../exceptions/dto/return-error.dto";
-import { MissingParamException } from "../exceptions/missing-param-exception";
 import { UserInsertDTO } from "../models/dtos/user-insert.dto";
 import { createUser, deleteUserById, getUsers } from "../services/user-services";
 

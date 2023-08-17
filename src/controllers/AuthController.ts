@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ReturnError } from "../exceptions/dto/return-error.dto";
 import { AuthDTO } from "../models/dtos/auth.dto";
-import { validateAuth } from "../services/auth.service";
+import { validateAuth } from "../services/auth.services";
 
 export class AuthController {
     public static async authenticateUser (req:Request<undefined, undefined, AuthDTO>, res:Response):Promise<Response> {
