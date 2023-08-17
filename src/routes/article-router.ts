@@ -12,3 +12,4 @@ router.get('/', authMiddleware, ArticleController.getAllArticles);
 
 router.post('/', authMiddleware, ArticleController.createOneArticle);
 
+router.put('/:id', authMiddleware, ArticleController.editOneArticle);

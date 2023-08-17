@@ -7,8 +7,11 @@ import { ArticleInsertDTO } from '../models/dtos/article-insert.dto';
 
 
 export const getArticles = async ():Promise<Article[]> => {
+
         const prisma = new PrismaClient();
+
         const articles = await prisma.article.findMany();
+
         if(articles?.length == 0){
             throw new NotFoundException('article');
         }
@@ -25,7 +28,6 @@ export const createArticle = async (body:ArticleInsertDTO, userID: number):Promi
         }
     }
     
-
     const article = {
         ...body,
         userID,
@@ -40,7 +42,9 @@ export const createArticle = async (body:ArticleInsertDTO, userID: number):Promi
 }
 
 export const getArticleById = async (id:number): Promise<Article> => {
+
     const prisma = new PrismaClient();
+
     const article = await prisma.article.findFirst({
         where: {
             id
@@ -53,11 +57,13 @@ export const getArticleById = async (id:number): Promise<Article> => {
 }
 
 export const editArticle = async (articleID:number, body: ArticleInsertDTO, userID: number):Promise<Article> => {
+   
     const prisma = new PrismaClient();
 
     const requiredParams= ['title', 'body', 'category'];
 
     for (const param of requiredParams) {
+
         if (!body[param]) {
             throw new MissingParamException(param);
         }
@@ -67,6 +73,7 @@ export const editArticle = async (articleID:number, body: ArticleInsertDTO, user
     if (article.userID !== userID) {
         throw new UnauthorizedException();
     }
+
     const newArticle: Article = {
         ...article,
         ...body
@@ -79,5 +86,6 @@ export const editArticle = async (articleID:number, body: ArticleInsertDTO, user
         data: newArticle,
         
     });
+    
     return editArticle;
 }
