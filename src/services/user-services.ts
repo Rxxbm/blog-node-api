@@ -86,7 +86,7 @@ export const deleteUserById = async (id:number):Promise<User> => {
         throw new NotFoundException('user');
     }
 
-    const deleteUser =  await prisma.user.delete({
+    const deleteUser = await prisma.user.delete({
         where: {
           id,
         },
